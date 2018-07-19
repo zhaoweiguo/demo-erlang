@@ -13,12 +13,15 @@ deps:
 cdeps:
 	@$(MAKE) -C _build/default/lib/merl/
 
-upgrade:
+upgrade: clean_rebar
 	@$(REBAR) upgrade
 
 clean:
 	@$(REBAR) clean
 	rm -f rebar3.crashdump
+
+clean_rebar:
+	rm -f rebar.lock
 
 clean_all:
 	rm -rf _build
