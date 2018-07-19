@@ -1,3 +1,4 @@
+{"1.1.0",
 [{<<"cecho">>,
   {git,"https://github.com/mazenharake/cecho.git",
        {ref,"d226c1724900528ec3b7b3b42874c3c1b2c7ce07"}},
@@ -5,4 +6,13 @@
  {<<"entop">>,
   {git,"https://github.com/mazenharake/entop.git",
        {ref,"5bf233582d7d470f48a19a5c9313993dc9335ff8"}},
-  0}].
+  0},
+ {<<"observer_cli">>,
+  {git,"https://github.com/zhongwencool/observer_cli.git",
+       {ref,"32765423484dfa3294a5e3d8ada5f032d2061618"}},
+  0},
+ {<<"recon">>,{pkg,<<"recon">>,<<"2.3.6">>},1}]}.
+[
+{pkg_hash,[
+ {<<"recon">>, <<"2BCAD0CF621FB277CABBB6413159CD3AA30265C2DEE42C968697988B30108604">>}]}
+].
