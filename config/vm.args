@@ -1,0 +1,6 @@
+-sname demo_erlang
+
+-setcookie demo_erlang_cookie
+
++K true
++A30
