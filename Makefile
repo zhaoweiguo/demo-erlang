@@ -13,7 +13,7 @@ deps:
 cdeps:
 	@$(MAKE) -C _build/default/lib/merl/
 
-upgrade: clean_rebar
+upgrade:
 	@$(REBAR) upgrade
 
 clean:
