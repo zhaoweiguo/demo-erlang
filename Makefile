@@ -9,6 +9,7 @@ app: deps
 
 rel: deps
 	@$(REBAR) as prod release
+	@$(REBAR) as prod tar
 
 deps:
 	@$(REBAR) get-deps

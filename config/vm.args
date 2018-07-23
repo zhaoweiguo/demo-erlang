@@ -1,6 +1,8 @@
--sname demo_erlang
-
--setcookie demo_erlang_cookie
 
 +K true
 +A30
+
+-name octopus_admin@127.0.0.1
+
+-setcookie demo_erlang_cookie
+
