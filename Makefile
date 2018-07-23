@@ -7,6 +7,9 @@ all:app
 app: deps
 	@$(REBAR) compile
 
+rel: deps
+	@$(REBAR) as prod release
+
 deps:
 	@$(REBAR) get-deps
 

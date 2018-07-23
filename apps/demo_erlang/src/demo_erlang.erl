@@ -3,10 +3,27 @@
 
 
 start() ->
-    ensure_started(demo_erlang).
+  start_deps(),
+  ensure_started(demo_erlang).
 
 start_deps() ->
-    ok.
+  %% 核心库
+  ensure_started(crypto),
+  ensure_started(asn1),
+  ensure_started(public_key),
+  ensure_started(ssl),
+
+  %% cowboy相关
+  ensure_started(ranch),
+  ensure_started(cowlib),
+  ensure_started(cowboy),
+
+
+%%  ensure_started(),
+%%  ensure_started(),
+%%  ensure_started(),
+  ok.
+
 
 
 

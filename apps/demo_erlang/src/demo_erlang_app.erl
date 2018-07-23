@@ -14,7 +14,8 @@
 %% API
 %%====================================================================
 
-start(_StartType, _StartArgs) ->
+start(StartType, StartArgs) ->
+    mycowboy:start(StartType, StartArgs),
     demo_erlang_sup:start_link().
 
 %%--------------------------------------------------------------------
