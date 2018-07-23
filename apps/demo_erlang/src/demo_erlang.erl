@@ -12,15 +12,21 @@ start_deps() ->
   ensure_started(asn1),
   ensure_started(public_key),
   ensure_started(ssl),
+  ensure_started(compile),
+  ensure_started(syntax_tools),
+  ensure_started(ssl),
+
 
   %% cowboy相关
   ensure_started(ranch),
   ensure_started(cowlib),
   ensure_started(cowboy),
 
+  %% lager相关
+  ensure_started(goldrush),
+  ensure_started(lager),
 
-%%  ensure_started(),
-%%  ensure_started(),
+
 %%  ensure_started(),
   ok.
 

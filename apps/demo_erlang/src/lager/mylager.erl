@@ -10,7 +10,14 @@
 -author("zhaoweiguo").
 
 %% API
--export([]).
+-export([init/0]).
+
+init() ->
+  lager:error("Some message"),
+  Term = "------------",
+  lager:warning("Some message with a term: ~p", [Term]),
+
+  ok.
 
 
 
