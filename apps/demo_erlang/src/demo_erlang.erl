@@ -12,7 +12,7 @@ start_deps() ->
   ensure_started(asn1),
   ensure_started(public_key),
   ensure_started(ssl),
-  ensure_started(compile),
+  ensure_started(compiler),
   ensure_started(syntax_tools),
   ensure_started(ssl),
 
