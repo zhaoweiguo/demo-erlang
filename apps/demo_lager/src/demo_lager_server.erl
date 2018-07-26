@@ -48,14 +48,14 @@ handle_cast(_Request, State) ->
 
 handle_info(_Info, State) ->
   F = fun(_)->
-    lager:info("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:debug("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:error("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:notice("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:warning("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:critical("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:alert("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
-    lager:emergency("==================================>>>>>>>>> handle_info _Info = ~p <<<<<<<<=====================================",[_Info]),
+    lager:info("=======>> handle_info _Info = ~p",[_Info]),
+    lager:debug("=======>> handle_info _Info = ~p",[_Info]),
+    lager:error("=======>> handle_info _Info = ~p",[_Info]),
+    lager:notice("=======>> handle_info _Info = ~p",[_Info]),
+    lager:warning("=======>> handle_info _Info = ~p",[_Info]),
+    lager:critical("=======>> handle_info _Info = ~p",[_Info]),
+    lager:alert("=======>> handle_info _Info = ~p",[_Info]),
+    lager:emergency("=======>> handle_info _Info = ~p",[_Info]),
     ok
       end,
   lists:foreach(F,lists:seq(1,100)),

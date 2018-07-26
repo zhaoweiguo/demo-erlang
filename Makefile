@@ -13,6 +13,7 @@ rel: deps
 
 deps:
 	@$(REBAR) get-deps
+	@$(REBAR) get-deps
 
 cdeps:
 	@$(MAKE) -C _build/default/lib/merl/
