@@ -35,8 +35,8 @@ stop() -> gen_server:call(self(), stop).
 
 init([]) ->
   lager:info("client process start"),
-  %{ok, #state{},1000}.  % 1秒执行一次gen_info()
-  {ok, #state{}}.
+  {ok, #state{},1000}.  % 1秒执行一次gen_info()
+  %{ok, #state{}}.
 
 handle_call(_Request, _From, State) ->
   lager:info("handle_call _Request = ~p",[_Request]),
@@ -49,15 +49,16 @@ handle_cast(_Request, State) ->
 handle_info(_Info, State) ->
   F = fun(_)->
     lager:info("=======>> handle_info _Info = ~p",[_Info]),
-    lager:debug("=======>> handle_info _Info = ~p",[_Info]),
-    lager:error("=======>> handle_info _Info = ~p",[_Info]),
-    lager:notice("=======>> handle_info _Info = ~p",[_Info]),
-    lager:warning("=======>> handle_info _Info = ~p",[_Info]),
-    lager:critical("=======>> handle_info _Info = ~p",[_Info]),
-    lager:alert("=======>> handle_info _Info = ~p",[_Info]),
-    lager:emergency("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:debug("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:error("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:notice("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:warning("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:critical("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:alert("=======>> handle_info _Info = ~p",[_Info]),
+%%    lager:emergency("=======>> handle_info _Info = ~p",[_Info]),
     ok
       end,
+  % F2 = spawn(F),  % 并发执行用这个
   lists:foreach(F,lists:seq(1,100)),
   {noreply, State,100}.
 
