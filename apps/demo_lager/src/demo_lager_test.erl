@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 25. 七月 2018 下午1:30
 %%%-------------------------------------------------------------------
--module(demo_lager_tmp).
+-module(demo_lager_test).
 -author("zhaoweiguo").
 
 %% API
@@ -22,13 +22,8 @@ test(Num)->
     supervisor:start_child(demo_lager_sup,[]),
     1+Acc
       end,
-  lists:foldl(F,0,lists:seq(1,10000)).
+  lists:foldl(F,0,lists:seq(1,30000)).
 
-test(Num)->
-  F = fun(_Num,Acc)->
-    spwan(demo_lager_sup,[]),
-    1+Acc
-      end,
-  lists:foldl(F,0,lists:seq(1,10000)).
+
 
 
