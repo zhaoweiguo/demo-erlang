@@ -4,6 +4,6 @@
 +P 1002400
 
 -name demo_erlang@127.0.0.1
-
+-s reloader
 -setcookie XEXIWPUHUJTYKXFMMTXEweb
 
