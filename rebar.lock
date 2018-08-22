@@ -35,6 +35,10 @@
   {git,"https://github.com/mazenharake/entop.git",
        {ref,"5bf233582d7d470f48a19a5c9313993dc9335ff8"}},
   0},
+ {<<"eper">>,
+  {git,"https://github.com/massemanet/eper.git",
+       {ref,"17b0f97ea8287b72e8ebbe7132214db182ff1a1d"}},
+  0},
  {<<"eredis">>,
   {git,"https://github.com/wooga/eredis.git",
        {ref,"cbc013f516e464706493c01662e5e9dd82d1db01"}},
@@ -81,7 +85,10 @@
   {git,"https://github.com/ninenines/ranch",
        {ref,"8eaae552ec520605b7f4b0e5943256d2b5e3621c"}},
   1},
- {<<"recon">>,{pkg,<<"recon">>,<<"2.3.6">>},1},
+ {<<"recon">>,
+  {git,"https://github.com/ferd/recon.git",
+       {ref,"794849210f40f37111f4502ec2f39b176dda4ebf"}},
+  0},
  {<<"reloader">>,
   {git,"https://github.com/mykook/reloader.git",
        {ref,"1c981b933db81fcbbd68f62f380ebc9725b6cb0f"}},
@@ -96,7 +103,6 @@
 {pkg_hash,[
  {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>},
  {<<"kafka_protocol">>, <<"96D09C4287377795AE2C488ACEAE2DC6872B94EDBA8309A27ACE933D9AE32333">>},
- {<<"recon">>, <<"2BCAD0CF621FB277CABBB6413159CD3AA30265C2DEE42C968697988B30108604">>},
  {<<"snappyer">>, <<"06C5F5C8AFE80BA38E94E1CA1BD9253DE95D8F2C85B08783E8D0F63815580556">>},
  {<<"supervisor3">>, <<"5F3C487A6EBA23DE0E64C06E93EFA0ECA06F40324A6412C1318C77ACA6DA8424">>}]}
 ].
