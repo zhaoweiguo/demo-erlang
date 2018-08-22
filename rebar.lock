@@ -1,4 +1,3 @@
-{"1.1.0",
 [{<<"brod">>,
   {git,"https://github.com/klarna/brod.git",
        {ref,"bb2d9504a5a606ede23cf5623792f534126b90f5"}},
@@ -59,7 +58,10 @@
   {git,"https://github.com/DeadZen/goldrush.git",
        {ref,"8f1b715d36b650ec1e1f5612c00e28af6ab0de82"}},
   0},
- {<<"kafka_protocol">>,{pkg,<<"kafka_protocol">>,<<"1.1.2">>},1},
+ {<<"kafka_protocol">>,
+  {git,"https://github.com/klarna/kafka_protocol.git",
+       {ref,"6af2802a96ce1112f0fb613b775b8f7ffc3655d8"}},
+  0},
  {<<"lager">>,
   {git,"https://github.com/erlang-lager/lager.git",
        {ref,"bf60290101306b3cc26544d0d181a5cff8931e82"}},
@@ -96,15 +98,15 @@
   {git,"https://github.com/mykook/reloader.git",
        {ref,"1c981b933db81fcbbd68f62f380ebc9725b6cb0f"}},
   0},
- {<<"snappyer">>,{pkg,<<"snappyer">>,<<"1.2.1">>},2},
- {<<"supervisor3">>,{pkg,<<"supervisor3">>,<<"1.1.5">>},1},
+ {<<"snappyer">>,
+  {git,"https://github.com/zmstone/snappyer.git",
+       {ref,"eb2cae1e073d2ca0d6c40ccbef5900ee8864ddda"}},
+  0},
+ {<<"supervisor3">>,
+  {git,"https://github.com/klarna/supervisor3.git",
+       {ref,"b601c90070d2663903c8568c2e4bb1a06a195443"}},
+  0},
  {<<"worker_pool">>,
   {git,"https://github.com/inaka/worker_pool.git",
        {ref,"b438c7dea9fa6f52249c108372f9458f974f9a1d"}},
-  0}]}.
-[
-{pkg_hash,[
- {<<"kafka_protocol">>, <<"96D09C4287377795AE2C488ACEAE2DC6872B94EDBA8309A27ACE933D9AE32333">>},
- {<<"snappyer">>, <<"06C5F5C8AFE80BA38E94E1CA1BD9253DE95D8F2C85B08783E8D0F63815580556">>},
- {<<"supervisor3">>, <<"5F3C487A6EBA23DE0E64C06E93EFA0ECA06F40324A6412C1318C77ACA6DA8424">>}]}
-].
+  0}].
