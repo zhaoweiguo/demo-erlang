@@ -20,6 +20,7 @@
 -record(state, {}).
 
 start_link() ->
+  gen_event:call().
   gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 init([]) ->

@@ -96,7 +96,7 @@
   0},
  {<<"reloader">>,
   {git,"https://github.com/newforks/reloader.git",
-       {ref,"d37b37e18bacede9ce054227d08d1204a3509ebc"}},
+       {ref,"ca64d496cae717b74a6f5e2f00d6a941eb0dff16"}},
   0},
  {<<"snappyer">>,
   {git,"https://github.com/zmstone/snappyer.git",
