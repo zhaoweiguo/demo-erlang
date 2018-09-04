@@ -1,3 +1,11 @@
+ch_rel-1.script
+ch_rel-1.boot
+ch_rel-2.script
+ch_rel-2.boot
+ch_rel-1.tar.gz
+ch_rel-2.tar.gz
+
+
 .rebar3
 _*
 .eunit
