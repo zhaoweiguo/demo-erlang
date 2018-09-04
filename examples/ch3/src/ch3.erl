@@ -48,8 +48,6 @@ code_change(_Vsn, State, _Extra) ->
 
 
 %%======inner method=======
-available(_Chs) ->
-  "chs".
 channels() ->
   {_Allocated = [], _Free = lists:seq(1,100)}.
 
