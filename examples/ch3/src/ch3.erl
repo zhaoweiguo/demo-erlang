@@ -24,12 +24,18 @@ alloc() ->
 free(Ch) ->
   gen_server:cast(ch3, {free, Ch}).
 
+available() ->
+  gen_server:call(ch3, available).
+
 init(_Args) ->
   {ok, channels()}.
 
 handle_call(alloc, _From, Chs) ->
   {Ch, Chs2} = alloc(Chs),
-  {reply, Ch, Chs2}.
+  {reply, Ch, Chs2};
+handle_call(available, _From, Chs) ->
+  N = available(Chs),
+  {reply, N, Chs}.
 
 handle_cast({free, Ch}, Chs) ->
   Chs2 = free(Ch, Chs),
@@ -48,6 +54,8 @@ code_change(_Vsn, State, _Extra) ->
 
 
 %%======inner method=======
+available(_Chs) ->
+  "chs".
 channels() ->
   {_Allocated = [], _Free = lists:seq(1,100)}.
 
