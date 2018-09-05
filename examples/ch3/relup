@@ -1,0 +1,9 @@
+{"B",
+ [{"A",[],
+   [{load_object_code,{ch3,"0.2.0",[ch3]}},
+    point_of_no_return,
+    {load,{ch3,brutal_purge,brutal_purge}}]}],
+ [{"A",[],
+   [{load_object_code,{ch3,"0.1.0",[ch3]}},
+    point_of_no_return,
+    {load,{ch3,brutal_purge,brutal_purge}}]}]}.
