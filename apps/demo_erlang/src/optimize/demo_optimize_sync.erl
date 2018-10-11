@@ -18,6 +18,7 @@
 -spec index(Flag:: sync | async, N::integer()) -> ok.
 index(Flag, N) ->
   gen_server:start_link({local, ?SERVER}, ?SERVER, [], []),
+  io:format("num:"),
   spawn(doit(Flag, N)),
   ok.
 
@@ -27,6 +28,9 @@ doit(sync, N) ->
 doit(async, N) ->
   casts(N).
 
+calls(0) ->
+  io:format("done~n"),
+  ok;
 calls(N) ->
   spawn(call()),
   calls(N-1).
@@ -36,6 +40,9 @@ call() ->
 
 
 
+casts(0) ->
+  io:format("done~n"),
+  ok;
 casts(N) ->
   spawn(cast()),
   casts(N-1).
