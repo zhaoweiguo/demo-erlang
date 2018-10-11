@@ -98,7 +98,7 @@ handle_call(_Request, _From, State) ->
   {noreply, NewState :: #state{}, timeout() | hibernate} |
   {stop, Reason :: term(), NewState :: #state{}}).
 handle_cast(doit, State=#state{num=Num}) ->
-  io:format("num:~p|", [Num]),
+  io:format("~p|", [Num]),
   NewState = State#state{num=Num+1},
   timer:sleep(?WAIT * 1000),
   {reply, ok, NewState};

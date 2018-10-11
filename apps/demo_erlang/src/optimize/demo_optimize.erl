@@ -11,9 +11,8 @@
 
 %% API
 -export([index/2]).
--export([doit/2, call/0, cast/0]).
 
--define(SERVER, demo_optimize).
+-define(SERVER, demo_optimize_server).
 
 
 -spec index(Flag:: sync | async, N::integer()) -> ok.
@@ -30,10 +29,10 @@ doit(async, N) ->
   casts(N).
 
 calls(0) ->
-  io:format("done~n"),
+  io:format("done.~n"),
   ok;
 calls(N) ->
-  spawn(call),
+  spawn(fun()-> call() end),
   calls(N-1).
 
 call() ->
@@ -45,7 +44,7 @@ casts(0) ->
   io:format("done~n"),
   ok;
 casts(N) ->
-  spawn(cast),
+  spawn(fun()-> cast() end),
   casts(N-1).
 
 cast() ->
