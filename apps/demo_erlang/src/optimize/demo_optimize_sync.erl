@@ -15,7 +15,7 @@
 -define(SERVER, demo_optimize_server).
 
 
--spec(index(Flag:: sync | async, N::integer()) -> ok).
+-spec index(Flag:: sync | async, N::integer()) -> ok.
 index(Flag, N) ->
   gen_server:start_link({local, ?SERVER}, ?SERVER, [], []),
   spawn(doit(Flag, N)),
@@ -23,7 +23,9 @@ index(Flag, N) ->
 
 
 doit(sync, N) ->
-  calls(N).
+  calls(N);
+doit(async, N) ->
+  casts(N).
 
 calls(N) ->
   call(),
@@ -32,6 +34,14 @@ calls(N) ->
 call() ->
   gen_server:call(?SERVER, doit).
 
+
+
+casts(N) ->
+  cast(),
+  casts(N-1).
+
+cast() ->
+  gen_server:cast(?SERVER, doit).
 
 
 

@@ -23,6 +23,7 @@
   code_change/3]).
 
 -define(SERVER, ?MODULE).
+-define(WAIT, 2).
 
 -record(state, {num}).
 
@@ -80,6 +81,7 @@ init([]) ->
 handle_call(doit, _From, State=#state{num=Num}) ->
   io:format("num:~p|", [Num]),
   NewState = State#state{num=Num+1},
+  timer:sleep(?WAIT * 1000),
   {reply, ok, NewState};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
@@ -95,6 +97,11 @@ handle_call(_Request, _From, State) ->
   {noreply, NewState :: #state{}} |
   {noreply, NewState :: #state{}, timeout() | hibernate} |
   {stop, Reason :: term(), NewState :: #state{}}).
+handle_cast(doit, State=#state{num=Num}) ->
+  io:format("num:~p|", [Num]),
+  NewState = State#state{num=Num+1},
+  timer:sleep(?WAIT * 1000),
+  {reply, ok, NewState};
 handle_cast(_Request, State) ->
   {noreply, State}.
 
