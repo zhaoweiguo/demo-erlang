@@ -38,14 +38,14 @@ call1s(0) ->
   ok;
 call1s(N) ->
   call(),
-  calls(N-1).
+  call1s(N-1).
 
 call2s(0) ->
   io:format("done.~n"),
   ok;
 call2s(N) ->
-  spawn(fun()-> call() end),
-  calls(N-1).
+  spawn(fun()->call() end),
+  call2s(N-1).
 
 
 
@@ -54,7 +54,7 @@ cast1s(0) ->
   ok;
 cast1s(N) ->
   cast(),
-  casts(N-1).
+  cast1s(N-1).
 
 
 cast2s(0) ->
@@ -62,7 +62,7 @@ cast2s(0) ->
   ok;
 cast2s(N) ->
   spawn(fun()-> cast() end),
-  casts(N-1).
+  cast2s(N-1).
 
 
 
