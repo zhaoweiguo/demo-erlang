@@ -11,11 +11,12 @@
 
 %% API
 -export([index/2]).
+-export([doit/2, call/0, cast/0]).
 
 -define(SERVER, demo_optimize_server).
 
 
--spec index(Flag:: sync | async, N::integer()) -> ok.
+-spec index(Flag:: sync1 | sync2 | async1 | async2, N::integer()) -> ok.
 index(Flag, N) ->
   gen_server:start_link({local, ?SERVER}, ?SERVER, [], []),
   io:format("num:"),
@@ -23,29 +24,53 @@ index(Flag, N) ->
   ok.
 
 
-doit(sync, N) ->
-  calls(N);
-doit(async, N) ->
-  casts(N).
+doit(sync1, N) ->
+  call1s(N);
+doit(sync2, N) ->
+  call2s(N);
+doit(async1, N) ->
+  cast1s(N);
+doit(async2, N) ->
+  cast2s(N).
 
-calls(0) ->
+call1s(0) ->
   io:format("done.~n"),
   ok;
-calls(N) ->
+call1s(N) ->
+  call(),
+  calls(N-1).
+
+call2s(0) ->
+  io:format("done.~n"),
+  ok;
+call2s(N) ->
   spawn(fun()-> call() end),
   calls(N-1).
 
-call() ->
-  gen_server:call(?SERVER, doit).
 
 
-
-casts(0) ->
+cast1s(0) ->
   io:format("done~n"),
   ok;
-casts(N) ->
+cast1s(N) ->
+  cast(),
+  casts(N-1).
+
+
+cast2s(0) ->
+  io:format("done~n"),
+  ok;
+cast2s(N) ->
   spawn(fun()-> cast() end),
   casts(N-1).
+
+
+
+
+%% === inner ===
+
+call() ->
+  gen_server:call(?SERVER, doit).
 
 cast() ->
   gen_server:cast(?SERVER, doit).

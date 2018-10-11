@@ -101,7 +101,7 @@ handle_cast(doit, State=#state{num=Num}) ->
   io:format("~p|", [Num]),
   NewState = State#state{num=Num+1},
   timer:sleep(?WAIT * 1000),
-  {reply, ok, NewState};
+  {noreply, NewState};
 handle_cast(_Request, State) ->
   {noreply, State}.
 
