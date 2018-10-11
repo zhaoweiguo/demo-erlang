@@ -6,20 +6,20 @@
 %%% @end
 %%% Created : 11. 十月 2018 上午10:41
 %%%-------------------------------------------------------------------
--module(demo_optimize_sync).
+-module(demo_optimize).
 -author("zhaoweiguo").
 
 %% API
--export([index/2]).
+-export([index/2, doit/2]).
 
--define(SERVER, demo_optimize_server).
+-define(SERVER, demo_optimize).
 
 
 -spec index(Flag:: sync | async, N::integer()) -> ok.
 index(Flag, N) ->
   gen_server:start_link({local, ?SERVER}, ?SERVER, [], []),
   io:format("num:"),
-  spawn(doit(Flag, N)),
+  spawn(?MODULE, doit, [Flag, N]),
   ok.
 
 
