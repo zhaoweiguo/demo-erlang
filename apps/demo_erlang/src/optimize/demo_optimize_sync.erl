@@ -28,7 +28,7 @@ doit(async, N) ->
   casts(N).
 
 calls(N) ->
-  call(),
+  spawn(call()),
   calls(N-1).
 
 call() ->
@@ -37,7 +37,7 @@ call() ->
 
 
 casts(N) ->
-  cast(),
+  spawn(cast()),
   casts(N-1).
 
 cast() ->
