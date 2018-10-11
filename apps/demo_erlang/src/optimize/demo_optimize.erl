@@ -10,7 +10,8 @@
 -author("zhaoweiguo").
 
 %% API
--export([index/2, doit/2]).
+-export([index/2]).
+-export([doit/2, call/0, cast/0]).
 
 -define(SERVER, demo_optimize).
 
@@ -32,7 +33,7 @@ calls(0) ->
   io:format("done~n"),
   ok;
 calls(N) ->
-  spawn(call()),
+  spawn(call),
   calls(N-1).
 
 call() ->
@@ -44,7 +45,7 @@ casts(0) ->
   io:format("done~n"),
   ok;
 casts(N) ->
-  spawn(cast()),
+  spawn(cast),
   casts(N-1).
 
 cast() ->
