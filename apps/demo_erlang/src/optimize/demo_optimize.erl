@@ -65,14 +65,18 @@ call_timeout1s(0) ->
   io:format("done.~n"),
   ok;
 call_timeout1s(N) ->
+  io:format("[~p]", [N]),
   call_timeout(),
+  io:format("="),
   call_timeout1s(N-1).
 
 call_timeout2s(0) ->
   io:format("done.~n"),
   ok;
 call_timeout2s(N) ->
+  io:format("[~p]", [N]),
   spawn(fun() -> call_timeout() end),
+  io:format("="),
   call_timeout2s(N-1).
 
 cast1s(0) ->
@@ -102,6 +106,7 @@ cast() ->
   gen_server:cast(?SERVER, doit).
 
 call_timeout() ->
-  gen_server:call(?SERVER, doit, ?TIMEOUT).
+  Value = catch gen_server:call(?SERVER, doit, ?TIMEOUT),
+  io:format("cb: ~p", [Value]).
 
 
