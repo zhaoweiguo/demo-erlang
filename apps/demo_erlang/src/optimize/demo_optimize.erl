@@ -20,12 +20,13 @@
 
 %% API
 -export([index/2]).
--export([doit/2, call/0, cast/0]).
+-export([doit/2, call/0, cast/0,call_timeout/0]).
 
 -define(SERVER, demo_optimize_server).
+-define(TIMEOUT, 10).
 
-
--spec index(Flag:: sync1 | sync2 | async1 | async2, N::integer()) -> ok.
+-spec index(Flag:: sync1 | sync2 | async1 | async2 | sync_timeout1 | sync_timeout2,
+            N::integer()) -> ok.
 index(Flag, N) ->
   gen_server:start_link({local, ?SERVER}, ?SERVER, [], []),
   io:format("num:"),
@@ -40,7 +41,11 @@ doit(sync2, N) ->
 doit(async1, N) ->
   cast1s(N);
 doit(async2, N) ->
-  cast2s(N).
+  cast2s(N);
+doit(sync_timeout1, N) ->
+  call_timeout1s(N);
+doit(async_timeout2, N) ->
+  cast_timeout2s(N).
 
 call1s(0) ->
   io:format("done.~n"),
@@ -56,7 +61,19 @@ call2s(N) ->
   spawn(fun()->call() end),
   call2s(N-1).
 
+call_timeout1s(0) ->
+  io:format("done.~n"),
+  ok;
+call_timeout1s(N) ->
+  call_timeout(),
+  call_timeout1s(N-1).
 
+cast_timeout2s(0) ->
+  io:format("done.~n"),
+  ok;
+cast_timeout2s(N) ->
+  spawn(fun() -> call_timeout() end),
+  cast_timeout2s(N-1).
 
 cast1s(0) ->
   io:format("done~n"),
@@ -84,6 +101,7 @@ call() ->
 cast() ->
   gen_server:cast(?SERVER, doit).
 
-
+call_timeout() ->
+  gen_server:call(?SERVER, doit, ?TIMEOUT).
 
 
