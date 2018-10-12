@@ -2,7 +2,16 @@
 %%% @author zhaoweiguo
 %%% @copyright (C) 2018, <COMPANY>
 %%% @doc
-%%%
+%%%   此模块主要用于测试同步、异步相关特性
+%%%     请求N次call/cast请求
+%%%   1. demo_optimize:index(sync1, N).
+%%%     gen_server:call/3返回结果后再请求下次call
+%%%   2. demo_optimize:index(sync2, N).
+%%%     起N个进程,并发请求gen_server:call/3
+%%%   3. demo_optimize:index(async1, N).
+%%%     gen_server:cast/3返回结果后再请求下次cast
+%%%   4. demo_optimize:index(async2, N).
+%%%     起N个进程,并发请求gen_server:cast/3
 %%% @end
 %%% Created : 11. 十月 2018 上午10:41
 %%%-------------------------------------------------------------------
