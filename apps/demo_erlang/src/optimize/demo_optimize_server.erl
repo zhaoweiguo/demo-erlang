@@ -82,6 +82,7 @@ handle_call(doit, _From, State=#state{num=Num}) ->
   io:format("~p|", [Num]),
   NewState = State#state{num=Num+1},
   timer:sleep(?WAIT * 1000),
+  io:format("<~p>", [Num]),
   {reply, ok, NewState};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
