@@ -79,7 +79,7 @@ init([]) ->
   {stop, Reason :: term(), Reply :: term(), NewState :: #state{}} |
   {stop, Reason :: term(), NewState :: #state{}}).
 handle_call(doit, _From, State=#state{num=Num}) ->
-  io:format("~p|", [Num]),
+  io:format("{~p}", [Num]),
   NewState = State#state{num=Num+1},
   timer:sleep(?WAIT * 1000),
   io:format("<~p>", [Num]),
