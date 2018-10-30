@@ -1,15 +1,13 @@
-{application, demo_clique,
+{application, demo_socket,
  [{description, "An OTP application"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, { demo_clique_app, []}},
+  {mod, { demo_socket_app, []}},
   {applications,
    [kernel,
     stdlib
    ]},
-  {env,[
-   {schema_dirs, ""}
-  ]},
+  {env,[]},
   {modules, []},
 
   {maintainers, []},

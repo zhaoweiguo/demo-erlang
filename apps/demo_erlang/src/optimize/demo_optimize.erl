@@ -23,7 +23,7 @@
 -export([doit/2, call/0, cast/0,call_timeout/0]).
 
 -define(SERVER, demo_optimize_server).
--define(TIMEOUT, 5).
+-define(TIMEOUT, 500).
 
 -spec index(Flag:: sync1 | sync2 | async1 | async2 | sync_timeout1 | sync_timeout2,
             N::integer()) -> ok.
@@ -107,7 +107,7 @@ cast() ->
 
 call_timeout() ->
   try
-    Value = catch gen_server:call(?SERVER, doit, ?TIMEOUT),
+    Value = gen_server:call(?SERVER, doit, ?TIMEOUT),
     io:format("cb: ~p.", [Value])
   catch
     Error:Reason  ->

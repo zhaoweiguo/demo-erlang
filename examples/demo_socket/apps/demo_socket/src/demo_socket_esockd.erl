@@ -4,15 +4,16 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. 八月 2018 上午10:24
+%%% Created : 30. Oct 2018 5:00 PM
 %%%-------------------------------------------------------------------
--module(demo_clique_tmp).
+-module(demo_socket_esockd).
 -author("zhaoweiguo").
 
 %% API
--export([index/0]).
+-export([start/0]).
 
-index() ->
-  clique:register([demo_clique_work]).
+start() ->
+
+  ok.
 
 

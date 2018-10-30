@@ -1,0 +1,6 @@
+-sname demo_socket
+
+-setcookie demo_socket_cookie
+
++K true
++A30
