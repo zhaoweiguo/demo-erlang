@@ -22,7 +22,7 @@ test(Num)->
     supervisor:start_child(demo_lager_sup,[]),
     1+Acc
       end,
-  lists:foldl(F,0,lists:seq(1,30000)).
+  lists:foldl(F,0,lists:seq(1,Num)).
 
 
 

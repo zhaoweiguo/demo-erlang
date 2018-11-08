@@ -7,7 +7,8 @@ cd `dirname $0`
 exec erl \
 -name demo_lager@127.0.0.1 \
 -pa ./_build/default/lib/*/ebin \
--config ./config/sys.config \
+-config ./config/sys.config
+-s demo_lager \
 -setcookie XEXIWPUHUJTYKXFMMTXEweb
 
 
