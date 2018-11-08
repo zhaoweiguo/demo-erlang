@@ -3,7 +3,7 @@
 
 start() ->
   start_deps(),
-  ensure_started(demo_erlang).
+  ensure_started(demo_lager).
 
 start_deps() ->
   %% 核心库
