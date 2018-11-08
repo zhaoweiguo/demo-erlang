@@ -9,14 +9,28 @@
 -module(util_l).
 -author("zhaoweiguo").
 
+-define(FLAG, false).
+
 %% API
 -export([log/1, log/2]).
 
 
 log(Format, Vars) ->
-  io:format(Format, Vars),
-  io:format("\n").
+  if
+    ?FLAG ==true ->
+      io:format(Format, Vars),
+      io:format("\n");
+    true ->
+      ok
+  end.
+
 
 log(Detail) ->
-  io:format(Detail),
-  io:format("\n").
+  if
+    ?FLAG ->
+      io:format(Detail),
+      io:format("\n");
+    true ->
+      ok
+  end.
+

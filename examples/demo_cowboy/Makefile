@@ -7,6 +7,6 @@ DEPS = cowboy
 dep_cowboy_commit = 2.5.0
 
 DEP_PLUGINS = cowboy
-
+ERLC_OPTS = -W0
 
 include erlang.mk
