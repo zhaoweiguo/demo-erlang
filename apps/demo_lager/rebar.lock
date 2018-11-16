@@ -1,22 +1,38 @@
 {"1.1.0",
-[{<<"cecho">>,
+[{<<"brod">>,
+  {git,"https://github.com/klarna/brod.git",
+       {ref,"5ad17ddff096e2adbd6d83570690e1c28b574986"}},
+  0},
+ {<<"cecho">>,
   {git,"https://github.com/mazenharake/cecho.git",
        {ref,"d226c1724900528ec3b7b3b42874c3c1b2c7ce07"}},
   1},
+ {<<"crc32cer">>,{pkg,<<"crc32cer">>,<<"0.1.3">>},2},
  {<<"entop">>,
   {git,"https://github.com/mazenharake/entop.git",
        {ref,"5bf233582d7d470f48a19a5c9313993dc9335ff8"}},
   0},
  {<<"goldrush">>,{pkg,<<"goldrush">>,<<"0.1.9">>},1},
+ {<<"kafka_protocol">>,{pkg,<<"kafka_protocol">>,<<"2.2.2">>},1},
  {<<"lager">>,
   {git,"https://github.com/erlang-lager/lager.git",
-       {ref,"bf60290101306b3cc26544d0d181a5cff8931e82"}},
+       {ref,"69b4ada2341b8ab2cf5c8e464ac936e5e4a9f62b"}},
+  0},
+ {<<"lager_kafka_backend">>,
+  {git,"https://github.com/newforks/lager_kafka_backend.git",
+       {ref,"5447309c20f0defcd9c37f769112f75b19e6183a"}},
   0},
  {<<"recon">>,
   {git,"https://github.com/ferd/recon.git",
        {ref,"818f0a0ee5d4dcdf53158e96605e751747f1077f"}},
-  0}]}.
+  0},
+ {<<"snappyer">>,{pkg,<<"snappyer">>,<<"1.2.4">>},2},
+ {<<"supervisor3">>,{pkg,<<"supervisor3">>,<<"1.1.7">>},1}]}.
 [
 {pkg_hash,[
- {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>}]}
+ {<<"crc32cer">>, <<"8984906C4B4FAE6AA292C48F286A1C83B19AD44BD102287ACB94D696015967CE">>},
+ {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>},
+ {<<"kafka_protocol">>, <<"AD321B1D7E406B75D1383F0CAA12EA6D2731E1C62EFC9D481BB5793396B8ABC7">>},
+ {<<"snappyer">>, <<"6D739C534CD2339633127A2B40279BE71F149E5842C5363A4D88E66EFB7C1FEC">>},
+ {<<"supervisor3">>, <<"BA0602C908D3D90F898D814DAF36E04D75F1337735DC527D0441E3E4AB3E7D5A">>}]}
 ].

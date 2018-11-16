@@ -34,6 +34,7 @@ stop() -> gen_server:call(self(), stop).
 
 
 init([]) ->
+  process_flag(trap_exit, true),
   lager:info("client process start"),
   {ok, #state{},1000}.  % 1秒执行一次gen_info()
   %{ok, #state{}}.
@@ -63,8 +64,8 @@ handle_info(_Info, State) ->
   {noreply, State,100}.
 
 
-terminate(_Reason, _State) ->
-  lager:info("terminate"),
+terminate(Reason, _State) ->
+  io:format("terminate:~p~n", [Reason]),
   ok.
 
 code_change(_OldVsn, State, _Extra) ->

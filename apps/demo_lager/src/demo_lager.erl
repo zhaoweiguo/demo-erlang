@@ -6,17 +6,8 @@ start() ->
   ensure_started(demo_lager).
 
 start_deps() ->
-  %% 核心库
-  ensure_started(crypto),
-  ensure_started(asn1),
-  ensure_started(public_key),
-  ensure_started(ssl),
-  ensure_started(compiler),
-  ensure_started(syntax_tools),
-
-  %% lager相关
-  ensure_started(goldrush),
-  ensure_started(lager),
+  application:ensure_all_started(brod),
+  application:ensure_all_started(lager),
 
   ok.
 
