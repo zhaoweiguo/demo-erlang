@@ -60,7 +60,7 @@ handle_info(_Info, State) ->
     ok
       end,
   % F2 = spawn(F),  % 并发执行用这个
-  lists:foreach(F,lists:seq(1,100)),
+  lists:foreach(F,lists:seq(1,10)),
   {noreply, State,100}.
 
 
