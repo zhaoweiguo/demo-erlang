@@ -26,6 +26,10 @@
   {git,"https://github.com/ferd/recon.git",
        {ref,"818f0a0ee5d4dcdf53158e96605e751747f1077f"}},
   0},
+ {<<"reloader">>,
+  {git,"https://github.com/newforks/reloader.git",
+       {ref,"df2b2d98da1aa5803dec1dcd04dc3dbb077eccec"}},
+  0},
  {<<"snappyer">>,{pkg,<<"snappyer">>,<<"1.2.4">>},2},
  {<<"supervisor3">>,{pkg,<<"supervisor3">>,<<"1.1.7">>},1}]}.
 [
