@@ -20,7 +20,7 @@
   0},
  {<<"lager_kafka_backend">>,
   {git,"https://github.com/newforks/lager_kafka_backend.git",
-       {ref,"5447309c20f0defcd9c37f769112f75b19e6183a"}},
+       {ref,"ed1904cd8193ab56e846305acb6767f44114db2b"}},
   0},
  {<<"recon">>,
   {git,"https://github.com/ferd/recon.git",
