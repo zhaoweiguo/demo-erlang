@@ -10,7 +10,7 @@
 -author("zhaoweiguo").
 
 %% API
--export([start/1, loop/2]).
+-export([start/1, loop/2, doit/2]).
 
 -define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
 -define(FILENAME, "/tmp/speed_file.log").
@@ -22,21 +22,23 @@ loop(0, _) ->
 loop(Times, Num) ->
   start(Num),
   timer:sleep(100),
-  loop(Times - 1).
+  loop(Times - 1, Num).
 
 start(Num) ->
   {ok, FD} = file:open(?FILENAME, ?OPTIONS),
-  timer:tc(doit(Num, FD)),
+  timer:tc(speed_file, doit, [Num, FD]),
   ok.
 
-
+doit(0, _) ->
+  io:format("doit done."),
+  ok;
 doit(Num, FD) ->
-  lists:foldl(doitonce(FD),0,lists:seq(1,Num)),
-  ok.
+  doitonce(FD),
+  doit(Num-1, FD).
 
 doitonce(FD) ->
   file:write(FD, ?MSG),
-  ok.
+  1.
 
 
 

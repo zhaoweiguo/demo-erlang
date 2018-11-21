@@ -10,7 +10,7 @@
 -author("zhaoweiguo").
 
 %% API
--export([start/1, loop/2]).
+-export([start/1, loop/2, doit/1]).
 
 -define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
 -define(CLIENTID, ?MODULE).
@@ -22,7 +22,7 @@ loop(0, _) ->
 loop(Times, Num) ->
   start(Num),
   timer:sleep(100),
-  loop(Times - 1).
+  loop(Times - 1, Num).
 
 start(Num) ->
   {ok, _} = application:ensure_all_started(brod),
@@ -30,13 +30,17 @@ start(Num) ->
   ok = brod:start_client(?BROKER, ?CLIENTID, []),
   ok = brod:start_producer(?CLIENTID, ?TOPIC, []),
 
-  timer:tc(doit(Num)).
+  timer:tc(speed_brod, doit, [Num]).
 
+doit(0) ->
+  io:format("doit done."),
+  ok;
 doit(Num) ->
-  lists:foldl(doitonce(),0,lists:seq(1,Num)).
+  doitonce(),
+  doit(Num -1).
+
 
 doitonce() ->
-
   PartitionFun = fun(_Topic, Partition, _Key, _Value) ->
     {ok, crypto:rand_uniform(0, Partition)}
                  end,
@@ -47,4 +51,4 @@ doitonce() ->
     {error, Reason} ->
       % @todo send warning sms?
       io:format("Reason = ~p; ~n", [Reason])
-  end
+  end.
