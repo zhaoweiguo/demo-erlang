@@ -12,7 +12,9 @@
 %% API
 -export([start/1, loop/2, doit/1]).
 
--define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
+-include("demo_lager.hrl").
+
+
 -define(CLIENTID, ?MODULE).
 -define(TOPIC, <<"topic">>).
 -define(BROKER, [{"localhost", 9092}]).

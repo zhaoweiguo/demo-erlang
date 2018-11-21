@@ -12,7 +12,8 @@
 %% API
 -export([start/1, loop/2, doit/2]).
 
--define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
+-include("demo_lager.hrl").
+
 -define(FILENAME, "/tmp/speed_file.log").
 -define(OPTIONS, [append, raw]).
 %%-define(OPTIONS, [append, raw, {delayed_write, Size, Interval}]).
