@@ -15,17 +15,28 @@
 -define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
 -define(FILENAME, "/tmp/speed_delayfile.log").
 %%-define(OPTIONS, [append, raw]).
--define(OPTIONS, [append, raw, {delayed_write, 5000, 1000}]).
+-define(OPTIONS, [append, raw]).
 
-loop(0, _) ->
-  ok;
+-define(DELAY_SIZE, 5000).
+-define(DELAY_TIME, 1000).
+
 loop(Times, Num) ->
-  start(Num),
+  loop(Times, Num, ?DELAY_SIZE, ?DELAY_TIME).
+
+
+loop(0, _, _, _) ->
+  ok;
+loop(Times, Num, Delay, Size) ->
+  start(Num, Delay, Size),
   timer:sleep(100),
   loop(Times - 1, Num).
 
 start(Num) ->
-  {ok, FD} = file:open(?FILENAME, ?OPTIONS),
+  start(Num, ?DELAY_SIZE, ?DELAY_TIME).
+
+start(Num, Delay, Size) ->
+  Options = ?OPTIONS ++ [{delayed_write, Delay, Size}],
+  {ok, FD} = file:open(?FILENAME, Options),
   {Time, _} = timer:tc(speed_delayfile, doit, [Num, FD]),
   io:format("time:~p~n", [Time]).
 
@@ -37,8 +48,7 @@ doit(Num, FD) ->
   doit(Num-1, FD).
 
 doitonce(FD) ->
-  file:write(FD, ?MSG),
-  1.
+  file:write(FD, ?MSG).
 
 
 

@@ -37,8 +37,7 @@ doit(Num, FD) ->
   doit(Num-1, FD).
 
 doitonce(FD) ->
-  file:write(FD, ?MSG),
-  1.
+  file:write(FD, ?MSG).
 
 
 
