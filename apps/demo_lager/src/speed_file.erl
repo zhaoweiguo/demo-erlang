@@ -42,8 +42,8 @@ loop(Times, Num, FD) ->
 
 start(Num, FD) ->
   {Time, _} = timer:tc(?MODULE, doit, [Num, FD]),
-  Time2 = {Time div 1000 div 1000, Time div 1000 rem 1000, Time div 1000},
-  io:format("time:~p~n", [Time2]).
+  Time2 = {Time div 1000 div 1000, Time div 1000 rem 1000, Time rem 1000},
+  io:format("time:~p | ~p~n", [Time, Time2]).
 
 doit(0, _) ->
   ok;
