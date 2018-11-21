@@ -30,7 +30,8 @@ start(Num) ->
   ok = brod:start_client(?BROKER, ?CLIENTID, []),
   ok = brod:start_producer(?CLIENTID, ?TOPIC, []),
 
-  timer:tc(speed_brod, doit, [Num]).
+  {Time, _} = timer:tc(speed_brod, doit, [Num]),
+  io:format("time:~p~n", [Time]).
 
 doit(0) ->
   io:format("doit done."),
