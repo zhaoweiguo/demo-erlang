@@ -51,10 +51,10 @@ loop(Times, Num, FD) ->
 
 start(Num, FD) ->
   {Time, _} = timer:tc(?MODULE, doit, [Num, FD]),
-  io:format("time:~p~n", [Time]).
+  Time2 = {Time div 1000 div 1000, Time div 1000 rem 1000, Time div 1000},
+  io:format("time:~p~n", [Time2]).
 
 doit(0, _) ->
-  io:format("doit done.~n"),
   ok;
 doit(Num, FD) ->
   doitonce(FD),
