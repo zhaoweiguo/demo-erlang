@@ -10,7 +10,7 @@
 -author("zhaoweiguo").
 
 %% API
--export([start/1, loop/2, doit/2]).
+-export([loop/2, doit/2]).
 
 -include("demo_lager.hrl").
 
@@ -18,20 +18,33 @@
 -define(OPTIONS, [append, raw]).
 %%-define(OPTIONS, [append, raw, {delayed_write, Size, Interval}]).
 
-loop(0, _) ->
-  ok;
+%% @doc 入口函数
+%% @param Times: 请求次数
+%% @param Num: 一次执行次数
+-spec loop(Times::integer(), Num::integer()) -> ok.
 loop(Times, Num) ->
-  start(Num),
-  timer:sleep(100),
-  loop(Times - 1, Num).
-
-start(Num) ->
   {ok, FD} = file:open(?FILENAME, ?OPTIONS),
-  {Time, _} = timer:tc(speed_file, doit, [Num, FD]),
+  loop(Times, Num, FD),
+  file:close(FD),
+  ok.
+
+
+
+loop(0, _, _) ->
+  ok;
+loop(Times, Num, FD) ->
+  start(Num, FD),
+  timer:sleep(100),
+  loop(Times - 1, Num, FD).
+
+
+
+
+start(Num, FD) ->
+  {Time, _} = timer:tc(?MODULE, doit, [Num, FD]),
   io:format("time:~p~n", [Time]).
 
-doit(0, FD) ->
-  file:close(FD),
+doit(0, _) ->
   io:format("doit done.~n"),
   ok;
 doit(Num, FD) ->

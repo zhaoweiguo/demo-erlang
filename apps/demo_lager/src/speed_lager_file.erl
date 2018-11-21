@@ -14,11 +14,6 @@
 -export([start/1, loop/2, doit/1]).
 
 loop(Times, Num) ->
-  loop(Times, Num, 0).
-
-loop(0, _, _) ->
-  ok;
-loop(Times, Num, 0) ->
   {ok, _} = application:ensure_all_started(brod),
   {ok, _} = application:ensure_all_started(lager),
 
@@ -39,15 +34,18 @@ loop(Times, Num, 0) ->
   ]),
   application:stop(lager),
   application:start(lager),
+  loop1(Times, Num),
+  ok.
 
-  loop(Times, Num, 1);
-loop(Times, Num, Flag) ->
+loop1(0, _) ->
+  ok;
+loop1(Times, Num) ->
   start(Num),
   timer:sleep(100),
-  loop(Times - 1, Num, Flag).
+  loop1(Times - 1, Num).
 
 start(Num) ->
-  {Time, _} = timer:tc(speed_lager_kafka, doit, [Num]),
+  {Time, _} = timer:tc(?MODULE, doit, [Num]),
   io:format("time:~p~n", [Time]).
 
 doit(0) ->
@@ -59,6 +57,9 @@ doit(Num) ->
 
 doitonce() ->
   lager:info(?MSG).
+
+
+
 
 
 

@@ -10,7 +10,7 @@
 -author("zhaoweiguo").
 
 %% API
--export([start/1, loop/2, doit/1]).
+-export([loop/2, doit/1]).
 
 -include("demo_lager.hrl").
 
@@ -19,25 +19,28 @@
 -define(TOPIC, <<"topic">>).
 -define(BROKER, [{"localhost", 9092}]).
 
-loop(0, _) ->
-  ok;
 loop(Times, Num) ->
-  start(Num),
-  timer:sleep(100),
-  loop(Times - 1, Num).
-
-start(Num) ->
   {ok, _} = application:ensure_all_started(brod),
 
   ok = brod:start_client(?BROKER, ?CLIENTID, []),
   ok = brod:start_producer(?CLIENTID, ?TOPIC, []),
+  loop1(Times, Num),
+  brod:stop_client(?CLIENTID),
+  ok.
 
-  {Time, _} = timer:tc(speed_brod, doit, [Num]),
+loop1(0, _) ->
+  ok;
+loop1(Times, Num) ->
+  start(Num),
+  timer:sleep(100),
+  loop1(Times - 1, Num).
+
+start(Num) ->
+  {Time, _} = timer:tc(?MODULE, doit, [Num]),
   io:format("time:~p~n", [Time]).
 
 doit(0) ->
-  brod:stop_client(?CLIENTID),
-  io:format("doit done.~n"),
+  io:format("doit done."),
   ok;
 doit(Num) ->
   doitonce(),
