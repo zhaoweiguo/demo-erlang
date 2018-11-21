@@ -10,7 +10,7 @@
 -author("zhaoweiguo").
 
 %% API
--export([start/1, loop/2, doit/2]).
+-export([start/1, loop/2, loop/4, doit/2]).
 
 -define(MSG, <<"123456789qwertyuiopasdfghjklzxcvbnm">>).
 -define(FILENAME, "/tmp/speed_delayfile.log").
@@ -40,8 +40,9 @@ start(Num, Delay, Size) ->
   {Time, _} = timer:tc(speed_delayfile, doit, [Num, FD]),
   io:format("time:~p~n", [Time]).
 
-doit(0, _) ->
-  io:format("doit done."),
+doit(0, FD) ->
+  file:close(FD),
+  io:format("doit done.~n"),
   ok;
 doit(Num, FD) ->
   doitonce(FD),

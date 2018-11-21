@@ -29,8 +29,9 @@ start(Num) ->
   {Time, _} = timer:tc(speed_file, doit, [Num, FD]),
   io:format("time:~p~n", [Time]).
 
-doit(0, _) ->
-  io:format("doit done."),
+doit(0, FD) ->
+  file:close(FD),
+  io:format("doit done.~n"),
   ok;
 doit(Num, FD) ->
   doitonce(FD),

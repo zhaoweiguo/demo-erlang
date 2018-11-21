@@ -34,7 +34,8 @@ start(Num) ->
   io:format("time:~p~n", [Time]).
 
 doit(0) ->
-  io:format("doit done."),
+  brod:stop_client(?CLIENTID),
+  io:format("doit done.~n"),
   ok;
 doit(Num) ->
   doitonce(),
