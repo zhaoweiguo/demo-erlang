@@ -25,6 +25,7 @@ loop(Times, Num) ->
   ok = brod:start_client(?BROKER, ?CLIENTID, []),
   ok = brod:start_producer(?CLIENTID, ?TOPIC, []),
   loop1(Times, Num),
+  loop_receive(),
   brod:stop_client(?CLIENTID),
   ok.
 
@@ -59,3 +60,14 @@ doitonce() ->
       % @todo send warning sms?
       io:format("Reason = ~p; ~n", [Reason])
   end.
+
+
+
+loop_receive() ->
+  receive
+    Msg ->
+      Msg,
+      loop_receive()
+  end.
+
+
