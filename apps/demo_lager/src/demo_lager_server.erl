@@ -48,19 +48,7 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 handle_info(_Info, State) ->
-  F = fun(_)->
-    lager:info("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:debug("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:error("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:notice("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:warning("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:critical("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:alert("=======>> handle_info _Info = ~p",[_Info]),
-%%    lager:emergency("=======>> handle_info _Info = ~p",[_Info]),
-    ok
-      end,
-  % F2 = spawn(F),  % 并发执行用这个
-  lists:foreach(F,lists:seq(1,10)),
+  spawn(fun() ->doit(_Info) end),
   {noreply, State,100}.
 
 
@@ -71,8 +59,22 @@ terminate(Reason, _State) ->
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
+doit(_Info) ->
 
-
-
+  F = fun(_)->
+    lager:info("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:debug("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:error("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:notice("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:warning("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:critical("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:alert("=======>> handle_info _Info = ~p",[_Info]),
+    %%    lager:emergency("=======>> handle_info _Info = ~p",[_Info]),
+    ok
+  end,
+  % F2 = spawn(F),  % 并发执行用这个
+  {Time, _} = timer:tc(lists,foreach, [F,lists:seq(1,100)]),
+  io:format("t:~p~n", [Time]),
+  ok.
 
 
