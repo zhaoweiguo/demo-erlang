@@ -17,7 +17,7 @@
 
 log(Format, Vars) ->
   if
-    ?FLAG ==true ->
+    ?FLAG ->
       io:format(Format, Vars),
       io:format("\n");
     true ->

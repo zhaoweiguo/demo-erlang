@@ -68,6 +68,8 @@ loop_receive() ->
     Msg ->
       Msg,
       loop_receive()
+  after 1000 ->
+    timeout
   end.
 
 

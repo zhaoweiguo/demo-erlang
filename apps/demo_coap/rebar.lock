@@ -1,0 +1,4 @@
+[{<<"gen_coap">>,
+  {git,"https://github.com/gotthardp/gen_coap.git",
+       {ref,"245e2205cf233e94e2d481f6ddda5da038ebc6ea"}},
+  0}].

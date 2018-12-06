@@ -26,6 +26,8 @@ loop(Times, Num) ->
       {size, 104857600},
       {date, "$D0"},
       {count, 15},
+      {sync_interval, 1000},
+      {sync_size, 5000},
       {formatter_config,
         [date, " ", time, "|", node, "|",severity,"|", module, "|", function, "|", line, "|", pid, "|", message]
       }
