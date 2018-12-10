@@ -1,0 +1,14 @@
+{application, 'demo_cowboy', [
+  {description, "New project"},
+  {vsn, "0.1.0"},
+  {modules, ['demo_cowboy','demo_cowboy_app','demo_cowboy_auth','demo_cowboy_handler','demo_cowboy_servers','demo_cowboy_servers_sup','demo_cowboy_sup','demo_cowboy_websocket','demo_cowboy_worker','demo_esockd_server','demo_esockd_sup','util_l']},
+  {registered, [demo_cowboy_sup]},
+  {applications, [kernel,stdlib,cowboy,jsx,recon,reloader]},
+  {mod, {demo_cowboy_app, []}},
+  {env, [
+    {nodes, [
+      {node, []}
+    ]},
+    {lb, random}  % random, round_robin, weight_rr, consistent_hash
+  ]}
+]}.
