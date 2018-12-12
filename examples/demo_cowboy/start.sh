@@ -8,6 +8,7 @@ exec erl \
 -name demo_cowboy@127.0.0.1 \
 -pa ./_build/default/lib/*/ebin \
 -s demo_cowboy \
+-s reloader
 -setcookie XEXIWPUHUJTYKXFMMTXEweb
 
 

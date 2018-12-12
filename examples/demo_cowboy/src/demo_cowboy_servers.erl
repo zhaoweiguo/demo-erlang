@@ -11,8 +11,10 @@
 
 -behaviour(gen_server).
 
+-include_lib("gutils/include/gutil.hrl").
+
 %% API
--export([start_link/0]).
+-export([start_link/0, start_link/1]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -32,13 +34,18 @@
 
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+start_link({Server, Num}) ->
+  ?LOGLN(""),
+  ?LOGF("server:~p~n", [Server]),
+  gen_server:start_link({local, {?SERVER, Num}}, ?MODULE, [Server], []).
 
 %%%===================================================================
 %%% gen_server callbacks
 %%%===================================================================
 
 
-init([]) ->
+init([Server]) ->
+  ?LOGF("server:~p~n", [Server]),
   {ok, #state{}}.
 
 

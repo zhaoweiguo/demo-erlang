@@ -25,4 +25,11 @@ function disconnect() {
 
 function sendmessage(Msg) {
     websocket.send(Msg);
+    if (websocket.bufferedAmount === 0) {
+        console.log("发送完毕");
+    } else {
+        console.log("发送还没结束");
+    }
 }
+
+

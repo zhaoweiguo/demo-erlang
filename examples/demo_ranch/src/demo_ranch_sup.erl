@@ -31,10 +31,10 @@ start_link() ->
 %% Before OTP 18 tuples must be used to specify a child. e.g.
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
-  ok = application:start(ranch),
+%%  ok = application:start(ranch),
   {ok, _} = ranch:start_listener(tcp_demo_ranch,
     ranch_tcp, [
-      {port, 5555},             % port=0,时使用随机端口>1024
+      {port, 5556},             % port=0,时使用随机端口>1024
       {max_connections, 100},   % 最大连接数,默认1024,可用infinity
       {num_acceptors, 42}       % 默认为10
     ],

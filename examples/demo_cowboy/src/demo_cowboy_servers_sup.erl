@@ -11,6 +11,8 @@
 
 -behaviour(supervisor).
 
+-include_lib("gutils/include/gutil.hrl").
+
 %% API
 -export([start_link/0]).
 
@@ -59,13 +61,24 @@ init([]) ->
 
   SupFlags = {one_for_one, 1000, 3600},
 
-  application:get_env(),
+  {ok, Servers} = application:get_env(servers),
 
-  AChild = {'demo_cowboy_servers', {'demo_cowboy_servers', start_link, []},
-    permanent, 2000, worker, ['demo_cowboy_servers']},
+  Children = gen_children(Servers),
+  ?LOGF("children:~p~n", [Children]),
 
-  {ok, {SupFlags, [AChild]}}.
+  {ok, {SupFlags, Children}}.
 
 %%%===================================================================
 %%% Internal functions
 %%%===================================================================
+
+gen_children(Servers) ->
+  gen_children(Servers, 1, []).
+
+gen_children([], _, Children) ->
+  Children;
+gen_children([Server | Other], Num, Children) ->
+  I = demo_cowboy_servers,
+  Child = {{I, Num}, {I, start_link, [{Server, Num}]}, permanent, 5000, worker, [I]},
+  gen_children(Other, Num+1, [Child | Children]).
+

@@ -15,12 +15,15 @@
 
 -define(SERVER, ?MODULE).
 
+-include_lib("gutils/include/gutil.hrl").
+
 %%====================================================================
 %% API functions
 %%====================================================================
 
 start_link() ->
-    application:ensure_all_started(gen_coap),
+    ?LOGLN(""),
+%%    application:ensure_all_started(gen_coap),
     supervisor:start_link({local, ?SERVER}, ?MODULE, []).
 
 %%====================================================================
@@ -32,7 +35,10 @@ start_link() ->
 %% Before OTP 18 tuples must be used to specify a child. e.g.
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
-    {ok, { {one_for_all, 0, 1}, []} }.
+    ?LOGLN(""),
+    {ok, { {one_for_all, 0, 1}, [
+%%        ?CHILD(demo_coap_server, worker)
+    ]} }.
 
 %%====================================================================
 %% Internal functions
