@@ -10,4 +10,10 @@
 -author("zhaoweiguo").
 
 %% API
--export([]).
+-export([start/0]).
+
+start() ->
+  application:ensure_all_started(demo_cowboy).
+
+
+
