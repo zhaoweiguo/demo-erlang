@@ -17,6 +17,7 @@
 
 
 start() ->
+  application:ensure_all_started(lager),
   application:ensure_all_started(gun),
   application:start(demo_gun).
 

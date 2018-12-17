@@ -19,7 +19,7 @@
 -export([terminate/2, code_change/3]).
 
 -record(state, {
-  connpid
+  conn_pid
 }).
 
 
@@ -32,68 +32,73 @@ start() ->
 init([]) ->
   {ok, _} = application:ensure_all_started(gun),
   {ok, ConnPid} = gun:open("localhost", 8081),
-  ?LOGF("Pid:~p~n", [ConnPid]),
+  lager:debug("Pid:~p~n", [ConnPid]),
   {ok, _Protocol} = gun:await_up(ConnPid),
 
   gun:ws_upgrade(ConnPid, "/websocket?token=abc"),
   {ok, #state{}, 1000}.
 
 handle_call({msg, Msg}, _From, State) ->
+  lager:debug(""),
   {reply, ok, State};
 handle_call(Msg, _From, State) ->
+  lager:debug(""),
   {reply, ok, State}.
 
 handle_cast(Msg, State) ->
+  lager:debug(""),
   {noreply, State}.
 
 handle_info({gun_upgrade, ConnPid, _StreamRef, [<<"websocket">>], Headers} , State) ->
-  ?LOGLN("gun_upgrade"),
+  lager:debug("gun_upgrade"),
   upgrade_success(ConnPid, Headers),
 %%      timer:send_after(1000, msg);
+  timer:sleep(1000),
   gun:ws_send(ConnPid, {text, "Hello!"}),
   {noreply, State};
 handle_info({gun_response, ConnPid, _, _, Status, Headers}, State) ->
-  ?LOGLN("gun_response"),
+  lager:debug("gun_response"),
   exit({ws_upgrade_failed, Status, Headers}),
   {noreply, State};
 handle_info({gun_error, _ConnPid, _StreamRef, Reason}, State) ->
-  ?LOGLN("gun_error"),
+  lager:debug("gun_error"),
   exit({ws_upgrade_failed, Reason}),
   {noreply, State};
 handle_info({gun_ws, ConnPid, StreamRef, Frame}, State) ->
-%%  ?LOGLN("gun_ws"),
-  ?LOGF("frame:~p~n", [Frame]),
+%%  lager:debug("gun_ws"),
+  lager:debug("frame:~p~n", [Frame]),
   handle_frame(ConnPid, StreamRef, Frame),
-  timer:sleep(4000),
+  timer:sleep(3000),
   gun:ws_send(ConnPid, {text, "Hello!"}),
   {noreply, State};
-handle_info({gun_down,ConnPid,ws,closed, A, B}, State=#state{connpid = ConnPid}) ->
-  ?LOGLN("msg"),
-  ?LOGF("A:~p,   B:~p~n", [A, B]),
+handle_info({gun_down,ConnPid,ws,closed, A, B}, State=#state{conn_pid = ConnPid}) ->
+  lager:debug("A:~p,   B:~p~n", [A, B]),
   gun:close(ConnPid),
   {noreply, State};
 handle_info(timeout, State) ->
-  ?LOGLN("timeout"),
+  lager:debug("timeout"),
   exit(timeout),
   {noreply, State};
 handle_info(Msg, State) ->
-  ?LOGF("other:~p~n", [Msg]),
+  lager:debug("other:~p~n", [Msg]),
   {noreply, State}.
 
 terminate(_Reason, _State) ->
+  lager:debug(""),
   ok.
 
 code_change(_OldVsn, State, _Extra) ->
+  lager:debug(""),
   {ok, State}.
 
 
 
 upgrade_success(ConnPid, Headers) ->
-  ?LOGF("Upgraded ~p. Success!~nHeaders:~p~n", [ConnPid, Headers]).
+  lager:debug("Upgraded ~p. Success!~nHeaders:~p~n", [ConnPid, Headers]).
 
 
 handle_frame(ConnPid, StreamRef, Frame) ->
-%%  ?LOGF("frame:~p~n", [Frame]),
+%%  lager:debug("frame:~p~n", [Frame]),
   ok.
 
 
