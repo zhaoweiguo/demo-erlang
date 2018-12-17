@@ -34,6 +34,7 @@ loop(Socket, Transport) ->
       ?LOGF("data:~p~n", [Data]),
       Transport:send(Socket, Data),
       loop(Socket, Transport);
-    _ ->
+    Other ->
+      ?LOGF("other:~p~n", [Other]),
       ok = Transport:close(Socket)
   end.

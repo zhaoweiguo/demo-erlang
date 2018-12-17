@@ -1,0 +1,8 @@
+[{<<"gutils">>,
+  {git,"https://github.com/newforks/gutils.git",
+       {ref,"266371c3681213fb669401ca34071377dca2a344"}},
+  0},
+ {<<"reloader">>,
+  {git,"https://github.com/newforks/reloader.git",
+       {ref,"adbf134e01aaba8211241f0d18812b09187285a4"}},
+  0}].
