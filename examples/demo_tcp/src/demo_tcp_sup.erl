@@ -33,13 +33,8 @@ start_link() ->
 %% Before OTP 18 tuples must be used to specify a child. e.g.
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
-    Port = 5556,
-    {ok, Socket} = gen_tcp:connect("localhost", Port, [{active, once}, {packet, 0}]),
-%%    {ok, Socket} = gen_tcp:connect("localhost", Port, [{active, false}, {packet, 0}], 5000),
-    gen_tcp:send(Socket, <<"1234567890\r\n">>),
-    A = gen_tcp:recv(Socket,0),
-    ?LOGF("receive:~p~n", [A]),
-    gen_tcp:close(Socket),
+    spawn(demo_tcp_server_active, start, []),
+%%    spawn(demo_tcp_server, start, []),
     {ok, { {one_for_all, 0, 1}, []} }.
 
 %%====================================================================

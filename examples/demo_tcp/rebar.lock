@@ -1,8 +1,18 @@
-[{<<"gutils">>,
+{"1.1.0",
+[{<<"goldrush">>,{pkg,<<"goldrush">>,<<"0.1.9">>},1},
+ {<<"gutils">>,
   {git,"https://github.com/newforks/gutils.git",
        {ref,"266371c3681213fb669401ca34071377dca2a344"}},
+  0},
+ {<<"lager">>,
+  {git,"https://github.com/erlang-lager/lager.git",
+       {ref,"69b4ada2341b8ab2cf5c8e464ac936e5e4a9f62b"}},
   0},
  {<<"reloader">>,
   {git,"https://github.com/newforks/reloader.git",
        {ref,"adbf134e01aaba8211241f0d18812b09187285a4"}},
-  0}].
+  0}]}.
+[
+{pkg_hash,[
+ {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>}]}
+].

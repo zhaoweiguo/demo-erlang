@@ -22,8 +22,8 @@ start_link() ->
 
 init([]) ->
   SupFlags = {one_for_one, 1000, 3600},
-  Child1 = ?CHILD(demo_gun_clientsock, worker, [demo_gun_clientsock], demo_gun_clientsock),
-  Child2 = ?CHILD(demo_gun_clientsock, worker, [abcd], abcd),
+  Child1 = ?CHILD(demo_gun_clientsock, worker, [token1], token1),
+  Child2 = ?CHILD(demo_gun_clientsock, worker, [token2], token2),
   Children = [Child1, Child2],
   {ok, {SupFlags, Children}}.
 
