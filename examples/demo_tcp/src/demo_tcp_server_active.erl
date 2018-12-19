@@ -11,11 +11,15 @@
 
 -behavior(gen_server).
 
+-define(HEART_BEAT_MSG, <<"heartbeat\r\n">>).
+-define(HEART_BEAT_TIME, 2000).
+
 %% API
 -export([start/0, terminate/1, send_msg/1]).
 
 -export([start_link/0]).
 -export([wait_send_msg/2]).
+-export([heartbeat/1]).
 %% cb
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, code_change/3, terminate/2]).
 
@@ -33,6 +37,7 @@ start() ->
 %%  Pid = demo_tcp_server:wait_send_msg(self(), Socket),
   Pid=1,
   gen_tcp:send(Socket, <<":1234567\r\n">>),
+  spawn(?MODULE, heartbeat, [Socket]),
   loop(Socket, Pid).
 
 
@@ -41,7 +46,7 @@ loop(Socket, Pid) ->
   receive
     {tcp, Socket, Data} ->
       lager:warning("receive:~p~n", [Data]),
-      demo_tcp_server_active:send_msg(Socket),
+%%      demo_tcp_server_active:send_msg(Socket),
       loop(Socket, Pid);
     {error, closed} ->
       lager:warning("reason:~p~n", [closed]),
@@ -57,6 +62,17 @@ wait_send_msg(Pid, Socket) ->
   lager:warning("pid:~p", [Pid]),
   timer:sleep(3000),
   gen_tcp:send(Socket, <<"asdfg\r\n">>).
+
+heartbeat(Socket) ->
+  io:format("heartbeat~n"),
+  case gen_tcp:send(Socket, ?HEART_BEAT_MSG) of
+    ok ->
+      timer:sleep(?HEART_BEAT_TIME),
+      heartbeat(Socket);
+    Other ->
+      lager:warning("error:~p", [Other]),
+      gen_tcp:close(Socket)
+  end.
 
 
 

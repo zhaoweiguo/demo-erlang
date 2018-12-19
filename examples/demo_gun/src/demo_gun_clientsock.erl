@@ -18,8 +18,12 @@
 -export([handle_call/3, handle_cast/2, handle_info/2]).
 -export([terminate/2, code_change/3]).
 
+-define(HEART_BEAT_MSG, <<"heartbeat">>).
+-define(HEART_BEAT_TIME, 2000).
+
 -record(state, {
-  conn_pid
+  conn_pid,
+  heartbeat_timer
 }).
 
 
@@ -36,7 +40,11 @@ init([Name]) ->
   {ok, _Protocol} = gun:await_up(ConnPid),
 
   gun:ws_upgrade(ConnPid, io_lib:format("/websocket?token=~p", [Name])),
-  {ok, #state{}, 1000}.
+  Timer = timer:send_after(?HEART_BEAT_TIME, ?HEART_BEAT_MSG),
+  {ok, #state{
+    heartbeat_timer= Timer,
+    conn_pid = ConnPid
+    }, 1000}.
 
 handle_call({msg, Msg}, _From, State) ->
   lager:warning(""),
@@ -49,12 +57,14 @@ handle_cast(Msg, State) ->
   lager:warning(""),
   {noreply, State}.
 
+
+
 handle_info({gun_upgrade, ConnPid, _StreamRef, [<<"websocket">>], Headers} , State) ->
   lager:warning("gun_upgrade"),
-  upgrade_success(ConnPid, Headers),
+  lager:warning("Upgraded ~p. Success!~nHeaders:~p~n", [ConnPid, Headers]),
 %%      timer:send_after(1000, msg);
   timer:sleep(1000),
-  gun:ws_send(ConnPid, {text, "Hello!"}),
+  gun:ws_send(ConnPid, {text, "msg:upgrade succ!"}),
   {noreply, State};
 handle_info({gun_response, ConnPid, _, _, Status, Headers}, State) ->
   lager:warning("gun_response"),
@@ -69,7 +79,7 @@ handle_info({gun_ws, ConnPid, StreamRef, Frame}, State) ->
   lager:warning("frame:~p~n", [Frame]),
   handle_frame(ConnPid, StreamRef, Frame),
   timer:sleep(3000),
-  gun:ws_send(ConnPid, {text, "Hello!"}),
+  gun:ws_send(ConnPid, {text, "[gun send]hello2!"}),
   {noreply, State};
 handle_info({gun_down,ConnPid,ws,closed, A, B}, State=#state{conn_pid = ConnPid}) ->
   lager:warning("A:~p,   B:~p~n", [A, B]),
@@ -79,6 +89,14 @@ handle_info(timeout, State) ->
   lager:warning("timeout"),
   exit(timeout),
   {noreply, State};
+%% 心跳
+handle_info(?HEART_BEAT_MSG, State=#state{
+                                  conn_pid = ConnPid
+                                }) ->
+  io:format("heartbeat:gun~n"),
+  gun:ws_send(ConnPid, {text, "heartbeat"}),
+  Timer = timer:send_after(?HEART_BEAT_TIME, ?HEART_BEAT_MSG),
+  {noreply, State#state{heartbeat_timer = Timer}};
 handle_info(Msg, State) ->
   lager:warning("other:~p~n", [Msg]),
   {noreply, State}.
