@@ -9,6 +9,14 @@
   {git,"https://github.com/erlang-lager/lager.git",
        {ref,"bf60290101306b3cc26544d0d181a5cff8931e82"}},
   0},
+ {<<"recon">>,
+  {git,"https://github.com/ferd/recon.git",
+       {ref,"75d70c7c08926d2f24f1ee6de14ee50fe8a52763"}},
+  0},
+ {<<"reloader">>,
+  {git,"https://github.com/newforks/reloader.git",
+       {ref,"adbf134e01aaba8211241f0d18812b09187285a4"}},
+  0},
  {<<"snappyer">>,{pkg,<<"snappyer">>,<<"1.2.1">>},2},
  {<<"supervisor3">>,{pkg,<<"supervisor3">>,<<"1.1.5">>},1}]}.
 [

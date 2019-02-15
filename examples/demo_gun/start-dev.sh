@@ -5,13 +5,11 @@ cd `dirname $0`
 #ulimit -n 1024000
 # +A 8
 exec erl \
--name demo_brod3@127.0.0.1 \
+-name demo_gun@127.0.0.1 \
 -pa ./_build/default/lib/*/ebin \
--config ./config/sys.config \
--s demo_brod \
+-config ./config/dev.config \
+-s reloader \
+-s demo_gun \
 -setcookie XEXIWPUHUJTYKXFMMTXEweb
-
-
-
 
 

@@ -33,8 +33,10 @@ start_link() ->
 %% Before OTP 18 tuples must be used to specify a child. e.g.
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
-    Child = ?CHILD(demo_gun_clientsock_sup, supervisor),
-    {ok, { {one_for_all, 0, 1}, [Child]} }.
+    Ledong = ?CHILD(demo_gun_sockledong_sup, supervisor),
+    Client = ?CHILD(demo_gun_sockclient_sup, supervisor),
+    Hub = ?CHILD(demo_gun_sockhub_sup, supervisor),
+    {ok, { {one_for_all, 0, 1}, [Ledong, Client, Hub]} }.
 
 %%====================================================================
 %% Internal functions

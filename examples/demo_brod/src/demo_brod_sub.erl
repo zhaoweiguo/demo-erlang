@@ -84,7 +84,7 @@ message_handler_loop(Topic, Partition, SubscriberPid) ->
             %% 3.send/1是否用新进程?
             brod_group_subscriber:ack(SubscriberPid, Topic, Partition, Offset),
             ?MODULE:message_handler_loop(Topic, Partition, SubscriberPid)
-    after 1000 ->
+    after 10000 ->
         lager:info("~s-~p: wait timeout", [Topic, Partition]),
         ?MODULE:message_handler_loop(Topic, Partition, SubscriberPid)
     end.

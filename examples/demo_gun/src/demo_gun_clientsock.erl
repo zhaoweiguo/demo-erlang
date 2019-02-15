@@ -34,7 +34,6 @@ start() ->
   gen_server:start_link({local, ?MODULE}, ?MODULE, [?MODULE], []).
 
 init([Name]) ->
-  {ok, _} = application:ensure_all_started(gun),
   {ok, ConnPid} = gun:open("localhost", 8081),
   lager:warning("Pid:~p~n", [ConnPid]),
   {ok, _Protocol} = gun:await_up(ConnPid),

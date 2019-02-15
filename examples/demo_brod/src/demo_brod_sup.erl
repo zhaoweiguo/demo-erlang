@@ -14,17 +14,7 @@
 -export([init/1]).
 
 -define(SERVER, ?MODULE).
-
-
--define(CONSUMER_TOPICS ,[<<"nbiot-consumber-topic">>]).
--define(PRODUCER_TOPIC ,<<"nbiot-producer-topic">>).
-
--define(CALLBACK_MODULE, demo_brod_sup).
-
--define(CLIENT_ID, 'nb-iot-kafka-clientid').
--define(GROUP_ID, <<"nb-iot-kafka-groupid">>).
-
--define(DEFAULT_BROKER, [{"localhost", 9092}]).
+-include("demo_brod.hrl").
 
 %%====================================================================
 %% API functions
@@ -46,7 +36,7 @@ init([]) ->
     ClientId = ?CLIENT_ID,
     ok = brod:start_client(Broker, ClientId, []),
 
-    ok = brod:start_producer(ClientId, ?CONSUMER_TOPICS, []),
+    ok = brod:start_producer(ClientId, ?PRODUCER_TOPIC, []),
 %%    ok = brod:start_consumer(ClientId, ?CONSUMER_TOPIC, []),
     GroupConfig = [
         {offset_commit_policy, commit_to_kafka_v2},
@@ -55,10 +45,10 @@ init([]) ->
     ConsumerConfig = [{begin_offset, latest}, {offset_reset_policy, reset_to_latest}],
     MessageType = message,
     {ok, _Subscriber} = brod:start_link_group_subscriber(
-        ClientId, ?GROUP_ID, ?PRODUCER_TOPIC, GroupConfig,
+        ClientId, ?GROUP_ID, [?CONSUMER_TOPIC], GroupConfig,
         ConsumerConfig, MessageType,
         _CallbackModule = ?CALLBACK_MODULE,
-        _CallbackInitArg = {ClientId, ?PRODUCER_TOPIC, MessageType}),
+        _CallbackInitArg = {ClientId, [?CONSUMER_TOPIC], MessageType}),
 %%    Child_sub = child_spec(demo_brod_sub, {demo_brod_sub, start_link, []}, permanent, brutal_kill, worker),
 %%    Child_pub = child_spec(demo_brod_pub, {demo_brod_pub, start_link, []}, permanent, brutal_kill, worker),
 

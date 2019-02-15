@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 14. Dec 2018 2:30 PM
 %%%-------------------------------------------------------------------
--module(demo_gun_clientsock_sup).
+-module(demo_gun_sockclient_sup).
 -author("zhaoweiguo").
 
 -include_lib("gutils/include/gutil.hrl").
@@ -21,11 +21,17 @@ start_link() ->
 
 
 init([]) ->
-  SupFlags = {one_for_one, 1000, 3600},
-  Child1 = ?CHILD(demo_gun_clientsock, worker, [token1], token1),
-%%  Child2 = ?CHILD(demo_gun_clientsock, worker, [token2], token2),
-%%  Children = [Child1, Child2],
-  Children = [Child1],
-  {ok, {SupFlags, Children}}.
+  SupFlags = #{
+    strategy => simple_one_for_one,
+    intensity => 0,
+    period => 1
+  },
+  ChildSpecs = [#{
+    id => demo_gun_sockclient,
+    start => {demo_gun_sock, start_link, [client]},
+    shutdown => brutal_kill
+
+  }],
+  {ok, {SupFlags, ChildSpecs}}.
 
 
