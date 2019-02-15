@@ -20,3 +20,4 @@ _build
 rebar3.crashdump
 erl_crash.dump
 .git/
+info.log*
