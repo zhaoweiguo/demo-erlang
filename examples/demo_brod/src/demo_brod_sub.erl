@@ -80,7 +80,7 @@ message_handler_loop(Topic, Partition, SubscriberPid) ->
             lager:info("~s-~p: offset:~w value:~p", [Topic, Partition, Offset, Value]),
             %% @todo
             %% 1.多个节点subscribe时,每个node得到的是同样的,还是不同样的?
-            %% 2.保证至少1次,还是至多1次?
+            %% 2.保证至少1次o,还是至多1次?
             %% 3.send/1是否用新进程?
             brod_group_subscriber:ack(SubscriberPid, Topic, Partition, Offset),
             ?MODULE:message_handler_loop(Topic, Partition, SubscriberPid)
